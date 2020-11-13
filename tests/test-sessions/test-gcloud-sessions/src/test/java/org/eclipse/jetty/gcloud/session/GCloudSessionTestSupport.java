@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.cloud.NoCredentials;
+import com.google.cloud.ServiceOptions;
 import com.google.cloud.datastore.Blob;
 import com.google.cloud.datastore.BlobValue;
 import com.google.cloud.datastore.Datastore;
@@ -110,6 +112,8 @@ public class GCloudSessionTestSupport
         DatastoreOptions options = DatastoreOptions.newBuilder()
             .setProjectId(_helper.getProjectId())
             .setHost(host + ":" + localPort)
+            .setRetrySettings(ServiceOptions.getNoRetrySettings())
+            .setCredentials(NoCredentials.getInstance())
             .build();
 
         _ds = options.getService();
